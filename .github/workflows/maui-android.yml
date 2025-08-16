@@ -11,10 +11,10 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
 
@@ -25,10 +25,10 @@ jobs:
       run: dotnet restore MyAccounts.Mobile/MyAccounts.Mobile.vbproj
 
     - name: Build MAUI Android
-      run: dotnet publish MyAccounts.Mobile/MyAccounts.Mobile.vbproj -f net8.0-android -c Release -o ./output
+      run: dotnet publish MyAccounts.Mobile/MyAccounts.Mobile.vbproj -f net8.0-android -c Release
 
     - name: Upload APK artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: MyAccounts-APK
-        path: ./output/*.apk
+        path: MyAccounts.Mobile/bin/Release/net8.0-android/publish/*.apk
