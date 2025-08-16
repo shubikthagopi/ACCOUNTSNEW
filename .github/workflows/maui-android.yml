@@ -3,7 +3,7 @@ name: Build MAUI Android APK
 on:
   push:
     branches: [ "main" ]
-  workflow_dispatch:   # allows manual trigger
+  workflow_dispatch:
 
 jobs:
   build:
@@ -19,16 +19,16 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Install MAUI workloads
-      run: dotnet workload install maui maui-android
+      run: dotnet workload install maui maui-android --ignore-failed-sources
 
     - name: Restore dependencies
-      run: dotnet restore MyAccounts.Mobile/MyAccounts.Mobile.vbproj
+      run: dotnet restore MyAccounts.Mobile.vbproj
 
     - name: Build MAUI Android
-      run: dotnet publish MyAccounts.Mobile/MyAccounts.Mobile.vbproj -f net8.0-android -c Release
+      run: dotnet publish MyAccounts.Mobile.vbproj -f net8.0-android -c Release
 
     - name: Upload APK artifact
       uses: actions/upload-artifact@v4
       with:
         name: MyAccounts-APK
-        path: MyAccounts.Mobile/bin/Release/net8.0-android/publish/*.apk
+        path: bin/Release/net8.0-android/publish/*.apk
